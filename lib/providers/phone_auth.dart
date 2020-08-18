@@ -23,6 +23,9 @@ class PhoneAuthDataProvider with ChangeNotifier {
       onAutoRetrievalTimeout;
 
   bool _loading = false;
+  bool _loggedIn = false;
+
+  bool get loggedIn => _loggedIn;
 
   final TextEditingController _phoneNumberController = TextEditingController();
 
@@ -113,6 +116,7 @@ class PhoneAuthDataProvider with ChangeNotifier {
       FireBase.auth.signInWithCredential(auth).then((AuthResult value) {
         if (value.user != null) {
           _addStatusMessage('Authentication successful');
+          _loggedIn = true;
           _addStatus(PhoneAuthState.Verified);
           if (onVerified != null) onVerified();
         } else {
