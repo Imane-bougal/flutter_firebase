@@ -2,9 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase/chat/lets_text.dart';
 import 'package:flutter_firebase/providers/phone_auth.dart';
+import 'package:flutter_firebase/settings.dart';
 import 'package:flutter_firebase/utils/constants.dart';
 import 'package:flutter_firebase/utils/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_firebase/login.dart';
 
 import '../auth.dart';
 
@@ -287,13 +289,15 @@ class _PhoneAuthVerifyState extends State<PhoneAuthVerify> {
         .document(currentUser.uid)
         .setData({
       "uid": currentUser.uid,
-      "surname": " ",
+      "nickname": " ",
       "phone": " ",
+      'photoUrl': " ",
+      'createdAt': DateTime.now().millisecondsSinceEpoch.toString(),
 
     })
         .then((result) => {
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (BuildContext context) => LetsChat())),
+          .push(MaterialPageRoute(builder: (BuildContext context) => LoginScreen(title: 'CHAT DEMO'))),
 
     })
         .catchError((err) => print(err)))
