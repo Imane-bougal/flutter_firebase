@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase/chat/lets_text.dart';
 import 'package:flutter_firebase/providers/phone_auth.dart';
 import 'package:flutter_firebase/utils/constants.dart';
 import 'package:flutter_firebase/utils/widgets.dart';
 import 'package:provider/provider.dart';
+
+import '../auth.dart';
 
 class PhoneAuthVerify extends StatefulWidget {
   /*
@@ -275,9 +278,26 @@ class _PhoneAuthVerifyState extends State<PhoneAuthVerify> {
         "${Provider
             .of<PhoneAuthDataProvider>(context, listen: false)
             .message}");
+
     await Future.delayed(Duration(seconds: 1));
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (BuildContext context) => LetsChat()));
+    FireBase.auth
+        .currentUser()
+        .then((currentUser) => Firestore.instance
+        .collection("users")
+        .document(currentUser.uid)
+        .setData({
+      "uid": currentUser.uid,
+      "surname": " ",
+      "phone": " ",
+
+    })
+        .then((result) => {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (BuildContext context) => LetsChat())),
+
+    })
+        .catchError((err) => print(err)))
+        .catchError((err) => print(err));
   }
 
   onFailed() {
