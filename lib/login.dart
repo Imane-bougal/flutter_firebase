@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase/const.dart';
+import 'package:flutter_firebase/settings.dart';
 import 'package:flutter_firebase/widget/loading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -103,7 +104,7 @@ class LoginScreenState extends State<LoginScreen> {
         isLoading = false;
       });
 
-      Navigator.push(context, MaterialPageRoute(builder: (context) => BottomNavBar()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Settings()));
     } else {
       Fluttertoast.showToast(msg: "Sign in fail");
       this.setState(() {
