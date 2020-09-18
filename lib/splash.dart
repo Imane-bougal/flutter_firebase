@@ -22,6 +22,7 @@ class _SplashPageState extends State<SplashPage> {
               else
                 {
                   Navigator.pushReplacementNamed(context, "/home")
+
                   /*
                   Firestore.instance
                       .collection("users")

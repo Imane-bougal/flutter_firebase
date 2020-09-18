@@ -59,7 +59,7 @@ class CountryProvider with ChangeNotifier {
         _countries = _listOfCountries;
         notifyListeners();
         // Selecting India
-        selectedCountry = _listOfCountries[100];
+        selectedCountry = _listOfCountries[149];
         searchResults = _listOfCountries;
       }
     } catch (err) {

@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase/chat/lets_text.dart';
+import 'package:flutter_firebase/providers/countries.dart';
 import 'package:flutter_firebase/providers/phone_auth.dart';
 import 'package:flutter_firebase/settings.dart';
 import 'package:flutter_firebase/utils/constants.dart';
@@ -15,9 +18,10 @@ class PhoneAuthVerify extends StatefulWidget {
    *  cardBackgroundColor & logo values will be passed to the constructor
    *  here we access these params in the _PhoneAuthState using "widget"
    */
-  final Color cardBackgroundColor = Color(0xFFFCA967);
-  final String logo = Assets.firebase;
-  final String appName = "Awesome app";
+  final Color cardBackgroundColor = Colors.grey;
+  final String logo = Assets.logoWhos;
+  final String appName = "WHO'S CALLING";
+
 
   @override
   _PhoneAuthVerifyState createState() => _PhoneAuthVerifyState();
@@ -290,8 +294,9 @@ class _PhoneAuthVerifyState extends State<PhoneAuthVerify> {
         .setData({
       "uid": currentUser.uid,
       "nickname": " ",
-      "phone": " ",
-      'photoUrl': " ",
+      "phone": "${Provider.of<PhoneAuthDataProvider>(context, listen: false).phone}",
+      "country":json.decode("${Provider.of<CountryProvider>(context, listen: false).selectedCountry.toString()}"),
+      'photoUrl': "",
       'createdAt': DateTime.now().millisecondsSinceEpoch.toString(),
 
     })

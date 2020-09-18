@@ -1,15 +1,19 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase/const.dart';
+import 'package:flutter_firebase/providers/countries.dart';
+import 'package:flutter_firebase/providers/phone_auth.dart';
 import 'package:flutter_firebase/settings.dart';
 import 'package:flutter_firebase/widget/loading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import "package:flutter_firebase/home.dart";
 import 'BottomNav.dart';
 import 'firebase/auth/auth.dart';
 
@@ -23,7 +27,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class LoginScreenState extends State<LoginScreen> {
-
   final FirebaseAuth firebaseAuth = FireBase.auth;
   SharedPreferences prefs;
 
@@ -43,20 +46,15 @@ class LoginScreenState extends State<LoginScreen> {
     });
 
     prefs = await SharedPreferences.getInstance();
-    FireBase.auth
-        .currentUser()
-        .then((currentUser) => {
-    if (currentUser == null)
-    {isLoggedIn==false}
-    else
-    {
-    isLoggedIn==true
-    }});
+    FireBase.auth.currentUser().then((currentUser) => {
+          if (currentUser == null)
+            {isLoggedIn == false}
+          else
+            {isLoggedIn == true}
+        });
     if (isLoggedIn) {
       Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => BottomNavBar())
-      );
+          context, MaterialPageRoute(builder: (context) => BottomNavBar()));
     }
 
     this.setState(() {
@@ -72,20 +70,39 @@ class LoginScreenState extends State<LoginScreen> {
     });
 
     FirebaseUser firebaseUser = (await FireBase.auth.currentUser());
-
+    // how to get vars from providers :
+    /*print("${Provider
+        .of<PhoneAuthDataProvider>(context, listen: false)
+        .phone}");
+    print("___________________________________");
+    print("${Provider
+        .of<CountryProvider>(context, listen: false)
+        .selectedCountry.toString()}");
+      */
     if (firebaseUser != null) {
       // Check is already sign up
-      final QuerySnapshot result =
-          await Firestore.instance.collection('users').where('id', isEqualTo: firebaseUser.uid).getDocuments();
+      final QuerySnapshot result = await Firestore.instance
+          .collection('users')
+          .where('id', isEqualTo: firebaseUser.uid)
+          .getDocuments();
       final List<DocumentSnapshot> documents = result.documents;
       if (documents.length == 0) {
         // Update data to server if new user
-        Firestore.instance.collection('users').document(firebaseUser.uid).setData({
+        Firestore.instance
+            .collection('users')
+            .document(firebaseUser.uid)
+            .setData({
           'nickname': "",
           'photoUrl': "",
+          "phone":
+              Provider.of<PhoneAuthDataProvider>(context, listen: false).phone,
+          //TODO  : store country as json
+          "country": json.decode(
+              Provider.of<CountryProvider>(context, listen: false)
+                  .selectedCountry
+                  .toString()),
           'id': firebaseUser.uid,
           'createdAt': DateTime.now().millisecondsSinceEpoch.toString(),
-          'phone': ''
         });
         // Write data to local
         currentUser = firebaseUser;
@@ -104,7 +121,11 @@ class LoginScreenState extends State<LoginScreen> {
         isLoading = false;
       });
 
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Settings()));
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>Settings()),
+      );
     } else {
       Fluttertoast.showToast(msg: "Sign in fail");
       this.setState(() {
@@ -129,7 +150,7 @@ class LoginScreenState extends State<LoginScreen> {
               child: FlatButton(
                   onPressed: handleSignIn,
                   child: Text(
-                    'SIGN IN WITH GOOGLE',
+                    'GET STARTED',
                     style: TextStyle(fontSize: 16.0),
                   ),
                   color: Color(0xffdd4b39),

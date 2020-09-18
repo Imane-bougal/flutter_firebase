@@ -10,6 +10,12 @@ class Session {
 }
 
 class LetsChat extends StatefulWidget {
+  final String peerId;
+  final String peerAvatar;
+
+  LetsChat({Key key, @required this.peerId, @required this.peerAvatar})
+      : super(key: key);
+
   @override
   _LetsChatState createState() => _LetsChatState();
 }

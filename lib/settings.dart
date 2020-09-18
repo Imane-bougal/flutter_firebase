@@ -10,6 +10,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'const.dart';
+import 'home.dart';
 
 class Settings extends StatelessWidget {
   @override
@@ -17,7 +18,7 @@ class Settings extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'SETTINGS',
+          'PROFILE',
           style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
@@ -125,7 +126,9 @@ class SettingsScreenState extends State<SettingsScreen> {
       Fluttertoast.showToast(msg: err.toString());
     });
   }
-
+  void onHomePressed() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) =>HomeScreen(currentUserId: id,)));
+  }
   void handleUpdateData() {
     focusNodeNickname.unfocus();
     focusNodeAboutMe.unfocus();
@@ -238,7 +241,7 @@ class SettingsScreenState extends State<SettingsScreen> {
                       data: Theme.of(context).copyWith(primaryColor: primaryColor),
                       child: TextField(
                         decoration: InputDecoration(
-                          hintText: 'Sweetie',
+                          hintText: 'MIMI',
                           contentPadding: EdgeInsets.all(5.0),
                           hintStyle: TextStyle(color: greyColor),
                         ),
@@ -288,6 +291,21 @@ class SettingsScreenState extends State<SettingsScreen> {
                   onPressed: handleUpdateData,
                   child: Text(
                     'UPDATE',
+                    style: TextStyle(fontSize: 16.0),
+                  ),
+                  color: primaryColor,
+                  highlightColor: Color(0xff8d93a0),
+                  splashColor: Colors.transparent,
+                  textColor: Colors.white,
+                  padding: EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
+                ),
+                margin: EdgeInsets.only(top: 50.0, bottom: 50.0),
+              ),
+              Container(
+                child: FlatButton(
+                  onPressed: onHomePressed,
+                  child: Text(
+                    'HOME',
                     style: TextStyle(fontSize: 16.0),
                   ),
                   color: primaryColor,
