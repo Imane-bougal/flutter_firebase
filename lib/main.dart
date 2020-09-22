@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_firebase/BottomNav.dart';
 import 'package:flutter_firebase/providers/countries.dart';
 import 'package:flutter_firebase/providers/phone_auth.dart';
+import 'package:flutter_firebase/settings.dart';
+import 'package:flutter_firebase/task.dart';
 
 import 'package:provider/provider.dart';
 
+import 'Searchinstant.dart';
 import 'firebase/auth/phone_auth/get_phone.dart';
 import 'home.dart';
 
@@ -93,33 +96,9 @@ class MyApp extends StatelessWidget {
           '/search': (BuildContext context) => MySearchPage(),
           '/profile': (BuildContext context)  =>Settings(),
         });
->>>>>>> Stashed changes
-  }
-}*/
-void main() => runApp(MultiProvider(providers: [
-      ChangeNotifierProvider(
-        create: (context) => CountryProvider(),
-      ),
-      ChangeNotifierProvider(
-        create: (context) => PhoneAuthDataProvider(),
-      ),
-    ], child: MyApp()));
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.green,
-        ),
-        home: SplashPage(),
-        routes: <String, WidgetBuilder>{
-          '/task': (BuildContext context) => TaskPage(title: 'Task'),
-          '/home': (BuildContext context) => BottomNavBar(),
-          '/login': (BuildContext context) => PhoneAuthGetPhone(),
-
-        });
   }
 }
+
+
+
