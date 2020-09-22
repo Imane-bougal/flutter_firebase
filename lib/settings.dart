@@ -239,12 +239,12 @@ class SettingsScreenState extends State<SettingsScreen> {
                           : Material(
                               child: Image.file(
                                 avatarImageFile,
-                                width: 90.0,
-                                height: 90.0,
+                                width: 200.0,
+                                height: 200.0,
                                 fit: BoxFit.cover,
                               ),
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(60.0)),
+                                  BorderRadius.all(Radius.circular(45.0)),
                               clipBehavior: Clip.hardEdge,
                             ),
                       IconButton(
@@ -284,9 +284,17 @@ class SettingsScreenState extends State<SettingsScreen> {
                           .copyWith(primaryColor: primaryColor),
                       child: TextField(
                         decoration: InputDecoration(
-                          hintText: 'nickname',
-                          contentPadding: EdgeInsets.all(5.0),
-                          hintStyle: TextStyle(color: Colors.white.withOpacity(0.7),
+                          filled: true,
+                          fillColor: Colors.white,
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.white,//this has no effect
+                            ),
+                            borderRadius: BorderRadius.circular(45.0),
+                          ),
+                          hintText: 'JackSparrow',
+                          contentPadding: EdgeInsets.all(15.0),
+                          hintStyle: TextStyle(color: Colors.grey,
                             fontWeight: FontWeight.w100,
                             fontSize: 18.0),
                         ),
@@ -298,7 +306,7 @@ class SettingsScreenState extends State<SettingsScreen> {
                         focusNode: focusNodeNickname,
                       ),
                     ),
-                    margin: EdgeInsets.only(left: 30.0, right: 30.0),
+                    margin: EdgeInsets.only(left: 5.0, right: 5.0),
                   ),
 
                   // About me
@@ -318,12 +326,20 @@ class SettingsScreenState extends State<SettingsScreen> {
                       data: Theme.of(context)
                           .copyWith(primaryColor: primaryColor),
                       child: TextField(
-                        decoration: InputDecoration(
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.white,
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white,//this has no effect
+                              ),
+                              borderRadius: BorderRadius.circular(45.0),
+                            ),
                           hintText: 'Fun, like travel and play PES...',
-                          contentPadding: EdgeInsets.all(5.0),
-                          hintStyle: TextStyle(color: Colors.white.withOpacity(0.7),
+                          contentPadding: EdgeInsets.all(15.0),
+                          hintStyle: TextStyle(color: Colors.grey,
                             fontWeight: FontWeight.w100,
-                            fontSize: 14.7,),
+                            fontSize: 18.0),
                         ),
                         controller: controllerAboutMe,
                         onChanged: (value) {
@@ -332,7 +348,7 @@ class SettingsScreenState extends State<SettingsScreen> {
                         focusNode: focusNodeAboutMe,
                       ),
                     ),
-                    margin: EdgeInsets.only(left: 30.0, right: 30.0),
+                    margin: EdgeInsets.only(left: 5.0, right: 5.0),
                   ),
                 ],
                 // Username

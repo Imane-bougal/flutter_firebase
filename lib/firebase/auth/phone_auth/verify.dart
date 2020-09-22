@@ -286,8 +286,6 @@ class _PhoneAuthVerifyState extends State<PhoneAuthVerify> {
             .message}");
 
     await Future.delayed(Duration(seconds: 1));
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (BuildContext context) => LetsChat()));
     FireBase.auth
         .currentUser()
         .then((currentUser) => Firestore.instance
