@@ -11,6 +11,6 @@ class Country {
 
   @override
   String toString() {
-    return 'Country{name: $name, code: $code, dialCode: $dialCode}';
+    return '{"name": "$name", "code": "$code", "dialCode": "$dialCode", "flag": "$flag"}';
   }
 }

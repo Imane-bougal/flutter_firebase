@@ -2,6 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart' show ChangeNotifier, VoidCallback;
 import 'package:flutter/widgets.dart' show TextEditingController;
 import 'package:flutter_firebase/firebase/auth/auth.dart';
+import 'package:flutter_firebase/login.dart';
+
+import '../login.dart';
 
 enum PhoneAuthState {
   Started,
@@ -23,6 +26,9 @@ class PhoneAuthDataProvider with ChangeNotifier {
       onAutoRetrievalTimeout;
 
   bool _loading = false;
+  bool _loggedIn = false;
+
+  bool get loggedIn => _loggedIn;
 
   final TextEditingController _phoneNumberController = TextEditingController();
 
@@ -113,6 +119,7 @@ class PhoneAuthDataProvider with ChangeNotifier {
       FireBase.auth.signInWithCredential(auth).then((AuthResult value) {
         if (value.user != null) {
           _addStatusMessage('Authentication successful');
+          _loggedIn = true;
           _addStatus(PhoneAuthState.Verified);
           if (onVerified != null) onVerified();
         } else {

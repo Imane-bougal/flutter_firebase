@@ -1,18 +1,27 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase/chat/lets_text.dart';
+import 'package:flutter_firebase/providers/countries.dart';
 import 'package:flutter_firebase/providers/phone_auth.dart';
+import 'package:flutter_firebase/settings.dart';
 import 'package:flutter_firebase/utils/constants.dart';
 import 'package:flutter_firebase/utils/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_firebase/login.dart';
+
+import '../auth.dart';
 
 class PhoneAuthVerify extends StatefulWidget {
   /*
    *  cardBackgroundColor & logo values will be passed to the constructor
    *  here we access these params in the _PhoneAuthState using "widget"
    */
-  final Color cardBackgroundColor = Color(0xFFFCA967);
-  final String logo = Assets.firebase;
-  final String appName = "Awesome app";
+  final Color cardBackgroundColor = Colors.grey;
+  final String logo = Assets.logoWhos;
+  final String appName = "WHO'S CALLING";
+
 
   @override
   _PhoneAuthVerifyState createState() => _PhoneAuthVerifyState();
@@ -275,11 +284,10 @@ class _PhoneAuthVerifyState extends State<PhoneAuthVerify> {
         "${Provider
             .of<PhoneAuthDataProvider>(context, listen: false)
             .message}");
+
     await Future.delayed(Duration(seconds: 1));
-<<<<<<< Updated upstream
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (BuildContext context) => LetsChat()));
-=======
     FireBase.auth
         .currentUser()
         .then((currentUser) => Firestore.instance
@@ -301,7 +309,7 @@ class _PhoneAuthVerifyState extends State<PhoneAuthVerify> {
     })
         .catchError((err) => print(err)))
         .catchError((err) => print(err));
->>>>>>> Stashed changes
+
   }
 
   onFailed() {

@@ -21,9 +21,9 @@ class PhoneAuthGetPhone extends StatefulWidget {
    *  cardBackgroundColor & logo values will be passed to the constructor
    *  here we access these params in the _PhoneAuthState using "widget"
    */
-  final Color cardBackgroundColor = Color(0xFF6874C2);
-  final String logo = Assets.firebase;
-  final String appName = "Awesome app";
+  final Color cardBackgroundColor = Colors.grey;
+  final String logo = Assets.logoWhos;
+  final String appName = "WHO'S CALLING";
 
   @override
   _PhoneAuthGetPhoneState createState() => _PhoneAuthGetPhoneState();
@@ -179,7 +179,7 @@ class _PhoneAuthGetPhoneState extends State<PhoneAuthGetPhone> {
               Provider
                   .of<PhoneAuthDataProvider>(context, listen: false)
                   .phoneNumberController,
-              prefix: countriesProvider.selectedCountry.dialCode ?? "+91",
+              prefix: countriesProvider.selectedCountry.dialCode ?? "+212",
             ),
           ),
 
