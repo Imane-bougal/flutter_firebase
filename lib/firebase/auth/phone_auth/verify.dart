@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase/chat/lets_text.dart';
+import 'package:flutter_firebase/groups/helper/helper_functions.dart';
 import 'package:flutter_firebase/providers/countries.dart';
 import 'package:flutter_firebase/providers/phone_auth.dart';
 import 'package:flutter_firebase/settings.dart';
@@ -286,6 +287,7 @@ class _PhoneAuthVerifyState extends State<PhoneAuthVerify> {
             .message}");
 
     await Future.delayed(Duration(seconds: 1));
+
     FireBase.auth
         .currentUser()
         .then((currentUser) => Firestore.instance
@@ -297,11 +299,12 @@ class _PhoneAuthVerifyState extends State<PhoneAuthVerify> {
       "phone": "${Provider.of<PhoneAuthDataProvider>(context, listen: false).phone}",
       "country":json.decode("${Provider.of<CountryProvider>(context, listen: false).selectedCountry.toString()}"),
       'photoUrl': "",
+      'groups': [],
       'createdAt': DateTime.now().millisecondsSinceEpoch.toString(),
 
     })
         .then((result) => {
-      Navigator.of(context)
+        Navigator.of(context)
           .push(MaterialPageRoute(builder: (BuildContext context) => LoginScreen(title: 'Welcome'))),
 
     })

@@ -5,12 +5,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase/groups/pages/home_page.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Searchinstant.dart';
 import 'const.dart';
+import 'groups/helper/helper_functions.dart';
 import 'home.dart';
 
 class Settings extends StatelessWidget {
@@ -160,7 +162,7 @@ class SettingsScreenState extends State<SettingsScreen> {
     //  builder: (context) => HomeScreen(
     //       currentUserId: id,
     //    )));
-    Navigator.push(context, MaterialPageRoute(builder: (context) => MySearchPage()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
   }
 
   void handleUpdateData() {
@@ -181,6 +183,8 @@ class SettingsScreenState extends State<SettingsScreen> {
       await prefs.setString('aboutMe', aboutMe);
       await prefs.setString('photoUrl', photoUrl);
       await prefs.setString('searchKey', searchKey);
+      HelperFunctions.saveUserNameSharedPreference(nickname);
+
       setState(() {
         isLoading = false;
       });

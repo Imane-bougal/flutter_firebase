@@ -18,6 +18,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import "package:flutter_firebase/home.dart";
 import 'BottomNav.dart';
 import 'firebase/auth/auth.dart';
+import 'groups/helper/helper_functions.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key key, this.title}) : super(key: key);
@@ -126,6 +127,7 @@ class LoginScreenState extends State<LoginScreen> {
         await prefs.setString('photoUrl', documents[0]['photoUrl']);
         await prefs.setString('aboutMe', documents[0]['aboutMe']);
         await prefs.setString('searchKey', documents[0]['searchKey']);
+        HelperFunctions.saveUserPhoneSharedPreference("${Provider.of<PhoneAuthDataProvider>(context, listen: false).phone}");
       }
       Fluttertoast.showToast(msg: "Sign in success");
       this.setState(() {
