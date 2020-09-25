@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase/MySearchPageToAdd.dart';
 import 'package:flutter_firebase/groups/services/database_service.dart';
 import 'package:flutter_firebase/groups/widgets/message_tile.dart';
+import '../../const.dart';
 
 class ChatPage extends StatefulWidget {
 
@@ -22,8 +24,19 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   
   Stream<QuerySnapshot> _chats;
+  List<Choice> choices = const <Choice>[
+    const Choice(title: 'Locate users', icon: Icons.location_searching),
+    const Choice(title: 'add users', icon: Icons.add),
+  ];
   TextEditingController messageEditingController = new TextEditingController();
+  void onItemMenuPress(Choice choice) {
+    if (choice.title == 'add users') {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) =>MySearchtoAdd(groupId: widget.groupId,groupName: widget.groupName)));
+    } else {
 
+    }
+  }
   Widget _chatMessages(){
     return StreamBuilder(
       stream: _chats,
@@ -79,6 +92,32 @@ class _ChatPageState extends State<ChatPage> {
         centerTitle: true,
         backgroundColor: Colors.black87,
         elevation: 0.0,
+          actions: <Widget>[
+            PopupMenuButton<Choice>(
+              onSelected: onItemMenuPress,
+              itemBuilder: (BuildContext context) {
+                return choices.map((Choice choice) {
+                  return PopupMenuItem<Choice>(
+                      value: choice,
+                      child: Row(
+                        children: <Widget>[
+                          Icon(
+                            choice.icon,
+                            color: primaryColor,
+                          ),
+                          Container(
+                            width: 10.0,
+                          ),
+                          Text(
+                            choice.title,
+                            style: TextStyle(color: primaryColor),
+                          ),
+                        ],
+                      ));
+                }).toList();
+              },
+            ),
+          ]
       ),
       body: Container(
         child: Stack(
@@ -135,4 +174,10 @@ class _ChatPageState extends State<ChatPage> {
       ),
     );
   }
+}
+class Choice {
+  const Choice({this.title, this.icon});
+
+  final String title;
+  final IconData icon;
 }

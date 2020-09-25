@@ -106,7 +106,7 @@ class LoginScreenState extends State<LoginScreen> {
           'photoUrl': "",
           "phone":
               Provider.of<PhoneAuthDataProvider>(context, listen: false).phone,
-
+          'groups': [],
           "country": json.decode(
               Provider.of<CountryProvider>(context, listen: false)
                   .selectedCountry

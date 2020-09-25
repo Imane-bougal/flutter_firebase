@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase/BottomNav.dart';
+import 'package:flutter_firebase/groups/pages/home_page.dart';
 import 'package:flutter_firebase/providers/countries.dart';
 import 'package:flutter_firebase/providers/phone_auth.dart';
 import 'package:flutter_firebase/settings.dart';
@@ -91,7 +92,7 @@ class MyApp extends StatelessWidget {
         home: SplashPage(),
         routes: <String, WidgetBuilder>{
           '/task': (BuildContext context) => TaskPage(title: 'Task'),
-          '/home': (BuildContext context) => BottomNavBar(),
+          '/home': (BuildContext context) => HomePage(),
           '/login': (BuildContext context) => PhoneAuthGetPhone(),
           '/search': (BuildContext context) => MySearchPage(),
           '/profile': (BuildContext context)  =>Settings(),

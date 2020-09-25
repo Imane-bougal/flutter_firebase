@@ -38,6 +38,22 @@ class DatabaseService {
     });
   }
 
+  Future addMembers(List members,String groupId,String groupName) async{
+    DocumentReference groupDocRef = groupCollection.document(groupId);
+    members.forEach((member) async {
+      DocumentReference userDocRef = userCollection.document(member["id"]);
+      DocumentSnapshot userDocSnapshot = await userDocRef.get();
+      List<dynamic> groups = await userDocSnapshot.data['groups'];
+      if(!(groups.contains(groupId + '_' + groupName))) {
+        //print('hey');
+        await userDocRef.updateData({
+          'groups': FieldValue.arrayUnion([groupId + '_' + groupName])
+        });
+        await groupDocRef.updateData({
+          'members': FieldValue.arrayUnion([uid + '_' + member["nickname"]])
+        });
+    }});
+  }
 
   // toggling the user group join
   Future togglingGroupJoin(String groupId, String groupName, String userName) async {
